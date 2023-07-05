@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Ayam Krispi",
+        "price": 12000
+    },
+    {
+        "name": "Ayam Original",
+        "price": 15000
+    },
+    {
+        "name": "Ayam Bakar",
+        "price": 13000
+    },
+    {
+        "name": "Hemat 1",
+        "price": 20000
+    },
+    {
+        "name": "Kids 1",
+        "price": 17000
+    },
+    {
+        "name": "Hemat 2",
+        "price": 22000
+    },
+    {
+        "name": "Hemat 3",
+        "price": 23000
+    },
+    {
+        "name": "Family 1",
+        "price": 200000
+    },
+    {
+        "name": "family 2",
+        "price": 220000
+    },
+    {
+        "name": "Kids 2",
+        "price": 21000
+    }
+  ]
