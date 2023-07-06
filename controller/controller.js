@@ -1,9 +1,8 @@
 'use strict'
 
-const { Profile, Customer, Order, Product, Category } = require('../models')
-const { Op } = require('sequelize')
+const { Profile, Customer, Order, Product, Category } = require('../models');
+const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
-const { formatBcryptjs } = require('../helper/formatted')
 
 class Controller {
 
@@ -36,8 +35,7 @@ class Controller {
         const { username, password } = req.body
         let opt = {
             where: {
-                username: {[Op.eq] : username},
-                // password: {[Op.eq] : valid}
+                username: {[Op.eq] : username}
             }
         }
 
@@ -58,7 +56,9 @@ class Controller {
     static readAllMenus(req, res){
         const { id } = req.params
 
-        res.render('menus', {id})
+        Product.findAll()
+        .then((data) => res.render('menus', {id, data}))
+        .catch((err) => res.send(err))
     }
     
     static readMyCart(req, res){
@@ -82,7 +82,11 @@ class Controller {
     }
 
     static readOneMenu(req, res){
-        // const { id, }
+        const { id, pr_id } = req.params
+
+        Product.findByPk(pr_id)
+        .then((data) => res.send(data))
+        .catch((err) => res.send(err))
     }
 
     static createBuy

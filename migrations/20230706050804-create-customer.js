@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       points: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       ProfileId: {
         type: Sequelize.INTEGER,
