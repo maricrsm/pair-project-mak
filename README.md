@@ -60,6 +60,17 @@ algoritma:
 
 
 == migration tables ==
+
+{
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Profiles',
+          key: 'id'
+        },
+        onUpdate: 'cascade',
+        onDelete: 'cascade' 
+      }
+      
 npx sequelize-cli model:generate --name Profile --attributes name:string,gender:string,dateOfBirth:date,address:string
 
 npx sequelize-cli model:generate --name Customer --attributes username:string,email:string,password:string,points:integer,ProfileId:integer

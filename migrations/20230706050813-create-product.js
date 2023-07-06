@@ -16,8 +16,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       qty: {
-        type: Sequelize.INTEGER,
-        defaultValue: 0
+        type: Sequelize.INTEGER
       },
       img: {
         type: Sequelize.STRING

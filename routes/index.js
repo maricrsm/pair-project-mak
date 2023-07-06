@@ -15,4 +15,6 @@ route.get('/users/:id/profile', Controller.readMyProfile)
 route.get('/users/:id/contactus', Controller.readContactUs)
 route.get('/users/:id/logout', Controller.readUserLogout)
 
+route.get('/users/:id/menu/:pr_id', Controller.readOneMenu)
+
 module.exports = route

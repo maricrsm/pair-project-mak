@@ -47,8 +47,8 @@ class Controller {
                 res.redirect('/users/login?usrerr=invalid%20username')
             }
             else {
-                const pass = formatBcryptjs(data.password)
-                if(password !== data.password) res.redirect('/users/login?usrerr=invalid%20password')
+                const validPassword = bcrypt.compareSync(password, data.password)
+                if(!validPassword) res.redirect('/users/login?usrerr=invalid%20password')
                 else res.redirect(`/users/${data.id}/menus`)
              }
         })
@@ -80,6 +80,12 @@ class Controller {
         const { id } = req.params
         res.send('logout')
     }
+
+    static readOneMenu(req, res){
+        // const { id, }
+    }
+
+    static createBuy
 
 
 }
