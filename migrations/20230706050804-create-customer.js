@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
+      role: {
+        type: Sequelize.STRING,
+        defaultValue: 'customer'
+      },
       ProfileId: {
         type: Sequelize.INTEGER,
         references: {

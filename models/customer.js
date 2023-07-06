@@ -59,9 +59,10 @@ module.exports = (sequelize, DataTypes) => {
         }
       }
     },
-    points: {
-      type: DataTypes.INTEGER
-    },
+    points: DataTypes.INTEGER
+    ,
+    role: DataTypes.STRING
+    ,
     ProfileId: DataTypes.INTEGER
   }, {
     sequelize,

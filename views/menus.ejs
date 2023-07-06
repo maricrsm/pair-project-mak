@@ -9,24 +9,39 @@
 <body>
     <div class="banner">
       <%- include('navbar') %>
+
+
+    <div class="center2">
+      <div class="card" style="position:fixed; width: 90rem;">
+        <form action="/menus" method="get">
+          <button name="cat" value="">ALL</button>
+          <button name="cat" value="1">Makanan</button>
+          <button name="cat" value="2">Minuman</button>
+          <button name="cat" value="3">Dessert</button>
+        </form>
         
-      <div class="center2">
-        <div class="card" style="width: 26rem;">
           <h1>Menu List</h1>
-          <% data.forEach(el => { %>
-           
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"><%= el.name %></h5>
-                <p class="card-text"><%= el.price %></p>
-                <a href="/product/<%= el.id %>" class="btn btn-primary">Buy</a>
-              </div>
+          <div class="container ">
+            <div class="row">
+              <% data.forEach(el => { %>
+                <div class="col-sm-3">
+                  <div class="card" style="height: 200px;" >
+                    <img height="500px" class="card-img-top" src="<%= el.img %>" alt="Ini foto tau gak? tapi eror HAHAHA">
+                    <div class="card-body">
+                      <h5 class="card-title"><%= el.name %></h5>
+                      <p class="card-text"><%= el.price %></p>
+                      <a href="/users/<%= userId %>/product/<%= el.id %>" class="btn btn-primary">Buy</a>
+                    </div>
+                  </div>
+                </div>
+              <% }) %>
             </div>
-      
-          <% }) %>
+          </div>
+
         </div>
-    </div>
+      </div>
+  
+        
 
     <%- include('link') %>
     </div>

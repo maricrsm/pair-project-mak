@@ -1,6 +1,6 @@
 'use strict';
 const {
-  Model
+  Model, Op
 } = require('sequelize');
 const { formatBcryptjs, currency } = require('../helper/formatted')
 module.exports = (sequelize, DataTypes) => {
@@ -25,6 +25,19 @@ module.exports = (sequelize, DataTypes) => {
       return currency(this.price)
     }
 
+    static prodByCategory(cat){
+      let option = {}
+      // console.log(cat);
+
+      if(cat){
+        option.where = {
+          CategoryId : {
+            [Op.eq] : cat
+          }
+        }
+      }
+      return Product.findAll(option)
+    }
 
   }
   Product.init({

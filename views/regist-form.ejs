@@ -9,11 +9,16 @@
   </head>
   <body>
       <div class="banner">
-        <%- include('navbar') %>
 
     <div class="center2">
       <div class="card" style="width: 38rem;">
     <h1>Registration Form</h1>
+
+    <% if (invalid) { %>
+      <% invalid.split(',').forEach(el => { %>
+        <p style="color: darkred; font-size: 10px;"><%= el %></p>
+      <% }) %>
+    <% } %>
 
     <form method="post" action="/users/register">
       <div class="mb-3">

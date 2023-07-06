@@ -13,4 +13,25 @@ const currency = (number) => {
     });
 }
 
-module.exports = { formatBcryptjs, currency }
+const sum = (val) => {
+    const totals = val.map(el => el.total)
+    const sum = totals.reduce(
+      (accumulator, currentValue) => accumulator + currentValue,
+      0
+    );
+    
+    return sum
+  }
+
+  const date = (val) => {
+    const options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      };
+
+    return val.toLocaleDateString("en-US", options)
+  }
+
+module.exports = { formatBcryptjs, currency, sum, date }

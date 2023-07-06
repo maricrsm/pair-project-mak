@@ -4,15 +4,17 @@ const { Profile, Customer, Order, Product, Category } = require('../models');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const path = require('path')
+const { formatBcryptjs, currency, sum, date } = require('../helper/formatted')
 
 class Controller {
 
     static readLandingPage(req, res){
-        res.render('home', {root:path.join(__dirname + '../views')})
+        res.render('home',{root:path.join(__dirname + '../views')})
     }
 
     static registForm(req, res){
-        res.render('regist-form')
+        const { invalid } = req.query;
+        res.render('regist-form', { invalid });
     }
 
     static postRegistForm(req, res){
@@ -24,7 +26,15 @@ class Controller {
             return Customer.create({username, email, password, ProfileId})
         })
         .then(() => res.redirect('/users/login'))
-        .catch((err) => res.send(err))
+        .catch((err) => {
+            if(err.name === `SequelizeValidationError`){
+                err.errors = err.errors.map(el => el.message)
+                res.redirect(`/users/register?invalid=${err.errors}`)
+            }
+            else {
+                res.send(err)
+            }
+        })
     }
 
     static loginForm(req, res){
@@ -58,9 +68,10 @@ class Controller {
     }
 
     static readAllMenus(req, res){
+        const cat = +req.query.cat
         const { userId } = req.session
 
-        Product.findAll()
+        Product.prodByCategory(cat)
         .then((data) => res.render('menus', {userId, data}))
         .catch((err) => res.send(err))
     }
@@ -71,18 +82,31 @@ class Controller {
     }
 
     static readMyProfile(req, res){
-        const { userId } = req.session
-        res.send('My Profile')
+        const { userId } = req.session;
+        const opt = {
+          include: [
+            {
+              model: Customer,
+              where: { ProfileId : userId }
+            }
+          ],
+          where: { id : userId }
+        };
+        
+        Profile.findOne(opt)
+          .then(data => {
+            // res.send(data)
+            res.render('profile',{data, date})
+          })
+          .catch(err => res.send(err));
     }
 
     static readContactUs(req, res){
-        const { userId } = req.session
-        res.send('Contact Us')
+        res.render('contactus')
     }
 
     static readUserLogout(req, res){
-        const { userId } = req.session
-        res.send('logout')
+        res.render('logout')
     }
 
     static readOneMenu(req, res){
@@ -99,15 +123,13 @@ class Controller {
         const { userId } = req.session
         const { total } = req.body
 
-        // res.send( {pr_id, sess: req.session, total})
         Order.create({total, CustomerId: userId, ProductId: pr_id})
-        .then((data) => res.redirect(`/menus`))
+        .then(() => res.redirect(`/menus`))
         .catch((err) => res.send(err))
     }
 
     static increaseQty(req, res){
         const { pr_id } = req.params
-        const { userId } = req.session
         const opt = {
             where: {id : {[Op.eq]: pr_id}}
           }
@@ -130,29 +152,79 @@ class Controller {
 
 
     static readCheckout(req, res){
-        const { userId } = req.session
+        const { userId } = req.session;
+        const { del } =  req.query
+        const id = userId;
         const opt = {
-            include: [
-              {
-                model: Customer,
-                where: { ProfileId: userId },
-                include: [Order] // Include the Order model
-              }
-            ],
-            where: { id: userId }
-          }
-        //   console.log(id);
-        // ,
-            
-        Profile.findAll(opt)
-        .then(data => res.send(data))
-        .catch(err => res.send(err))
+          include: [
+            {
+              model: Customer,
+              where: { ProfileId: id },
+              include: [Order]
+            }
+          ],
+          where: { id }
+        };
+        
+        Profile.findOne(opt)
+          .then(data => {
+            const { name } = data
+            const {points} = data.Customer
+            const orders = data.Customer.Orders
+            res.render('checkout',{customer: { points }, orders, profile: { name }, sum, del})
+          })
+          .catch(err => res.send(err));
     }
 
-    // static createOrder(req, res){
-    //     const { id } = req.session
+    static checkedout(req, res) {
+        const { userId } = req.session;
+        
+        Product.update({ qty: 0 }, {
+            where: { id: { [Op.gt]: 0 } }
+          })
+            .then(() => {
+              return Order.destroy({
+                where: {
+                  CustomerId: {
+                    [Op.eq]: userId
+                  }
+                }
+              })
+            })
+            .then(() => res.render('Sukses'))
+            .catch((err) => res.send(err))
+    }
 
-    // }
+    static deleteTransaction(req, res) {
+        const { orderId } = req.params
+        const opt = {
+            where: {
+                orderId : orderId
+            }
+        }
+        let del = ``
+
+        Order.findOne(opt)
+        .then((data) => {
+            del = data
+            return Order.destroy({
+                where: { orderId }
+              })
+        })
+        .then(() => res.redirect(`/checkout?del=${orderId}`))
+        .catch((err) => res.send(err))
+
+        // Order.destroy({
+        //     where: { orderId }
+        //   })
+        //     .then(() => res.redirect('/checkout'))
+        //     .catch((err) => res.send(err))
+    }
+
+    static logout(req, res) {
+        req.session.destroy()
+        res.redirect('/')
+    }
 
 
 }

@@ -16,21 +16,28 @@ route.post('/users/login', Controller.postLoginForm)
 
 route.use((req, res, next) => {
     // console.log(req.session.userId, "Middleware");
-    next()
+    if(req.session.userId) next()
+    else {
+        const validation = 'Please Sign in or Register first'
+        res.redirect('/')
+        // res.redirect(`/?invalid=${validation}`)
+    }
 })
 
 route.get('/menus', Controller.readAllMenus)
 route.get('/mycart', Controller.readMyCart)
 route.get('/profile', Controller.readMyProfile)
 route.get('/contactus', Controller.readContactUs)
-route.get('/logout', Controller.readUserLogout)
+route.get('/loggingout', Controller.readUserLogout)
+route.get('/logout', Controller.logout)
 
+route.get('/checkout', Controller.readCheckout)
+route.get('/checkout-transaction', Controller.checkedout)
 route.get('/product/:pr_id', Controller.readOneMenu)
 route.post('/product/:pr_id', Controller.readPostOneMenu)
 route.get('/product/:pr_id/incr', Controller.increaseQty)
 route.get('/product/:pr_id/decr', Controller.decreaseQty)
-route.get('/checkout', Controller.readCheckout)
-// route.post('/users/:id/checkout', Controller.readPostCheckout)
+route.get('/checkout/:orderId/delete', Controller.deleteTransaction)
 
 
 module.exports = route
