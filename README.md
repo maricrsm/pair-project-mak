@@ -1,17 +1,5 @@
 # pair-project-mak
 
-npx sequelize-cli model:generate --name Profile --attributes name:string,gender:string,dateOfBirth:date,address:string
-
-npx sequelize-cli model:generate --name Customer --attributes username:string,email:string,password:string,points:integer,ProfileId:integer
-
-npx sequelize-cli model:generate --name Order --attributes orderId:string,total:integer,dateOfBirth:date,address:string
-
-npx sequelize-cli model:generate --name Product --attributes name:string,price:integer,qty:integer,img:string,CategoryId:integer
-
-npx sequelize-cli model:generate --name Category --attributes name:string
-
-npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all
-
 === many-to-many ===
 melalui table conjugtion dimana dia menampung foreign key dari 2 table yg berbeda.
 
@@ -19,17 +7,18 @@ table conjugtion menampung 1 foreign key dari 1 table -> new migration addColumn
 jadi table conjugtion menampung 2 foreign key   (migrate 3 table + 1 add column), 
 dibagian table jgn lupa tambahkan association 
 ex:
-di model Profile static assosiation -> 
-Profile.hasOne(models.User)
-Profile.hasMany(models.ProfileProduct)
-Profile.belongsToMany(models.Product, {through : models.ProfileProduct})
+di model Customer static assosiation -> 
+Customer.belongsTo(models.Profile)
+Customer.hasMany(models.Order)
+Customer.belongsToMany(models.Product, {through : models.Order})
 
 di model Product
-Product.hasMany(models.ProfileProduct)
-Product.belongsToMany(models.Profile, {through : models.ProfileProduct})
+Product.belongsTo(models.Category)
+Product.hasMany(models.Order)
+Product.belongsToMany(models.Customer, {through : models.Order})
 
-di model ProfileProduct (associate kyk biasa)
-ProfileProduct.belongsTo(models.Profile)
+di model Order (associate kyk biasa)
+ProfileProduct.belongsTo(models.Customer)
 ProfileProduct.belongsTo(models.Product)
 
 === bycriptjs ===
@@ -70,3 +59,17 @@ algoritma:
 - pake middleware + session untuk authentication role (optional)
 
 
+== migration tables ==
+npx sequelize-cli model:generate --name Profile --attributes name:string,gender:string,dateOfBirth:date,address:string
+
+npx sequelize-cli model:generate --name Customer --attributes username:string,email:string,password:string,points:integer,ProfileId:integer
+
+npx sequelize-cli model:generate --name Order --attributes orderId:string,total:integer,dateOfBirth:date,address:string
+
+npx sequelize-cli model:generate --name Product --attributes name:string,price:integer,qty:integer,img:string,CategoryId:integer
+
+npx sequelize migration:generate --name add-column-CustomerId-to-Order
+
+npx sequelize-cli model:generate --name Category --attributes name:string
+
+npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all
