@@ -4,7 +4,7 @@ const { Profile, Customer, Order, Product, Category } = require('../models');
 const { Op } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const path = require('path')
-const { formatBcryptjs, currency, sum, date } = require('../helper/formatted')
+const { pointsChecker, currency, sum, date } = require('../helper/formatted')
 
 class Controller {
 
@@ -72,7 +72,7 @@ class Controller {
         const { userId } = req.session
 
         Product.prodByCategory(cat)
-        .then((data) => res.render('menus', {userId, data}))
+        .then((data) => res.render('menus', {userId, data, currency}))
         .catch((err) => res.send(err))
     }
     
@@ -114,7 +114,7 @@ class Controller {
         const { userId } = req.session
 
         Product.findByPk(pr_id)
-        .then((data) => res.render('buy-product', {id: userId, data}))
+        .then((data) => res.render('buy-product', {id: userId, data, currency}))
         .catch((err) => res.send(err))
     }
 
@@ -171,14 +171,14 @@ class Controller {
             const { name } = data
             const {points} = data.Customer
             const orders = data.Customer.Orders
-            res.render('checkout',{customer: { points }, orders, profile: { name }, sum, del})
+            res.render('checkout',{customer: { points }, orders, profile: { name }, sum, del, currency})
           })
           .catch(err => res.send(err));
     }
 
     static checkedout(req, res) {
         const { userId } = req.session;
-        
+      
         Product.update({ qty: 0 }, {
             where: { id: { [Op.gt]: 0 } }
           })
@@ -213,12 +213,6 @@ class Controller {
         })
         .then(() => res.redirect(`/checkout?del=${orderId}`))
         .catch((err) => res.send(err))
-
-        // Order.destroy({
-        //     where: { orderId }
-        //   })
-        //     .then(() => res.redirect('/checkout'))
-        //     .catch((err) => res.send(err))
     }
 
     static logout(req, res) {

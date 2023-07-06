@@ -5,20 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Bootstrap demo</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="/cssFiles/background.css">
   </head>
   <body>
-    <h1>buy product</h1>
+    <%- include('navbar') %>
+    <div class="banner">
+
+
+    <div class="center2">
+      <div class="card" style="width: 56rem;">
+    <h1>Buy product</h1>
     <img src="" alt="">
     <h2><%= data.name %></h2>
-    <p><%= data.price %></p>
-    <p>Jumlah : <%= data.qty %></p>
-    <button onclick="location.replace('/product/<%= data.id %>/decr')">kurangi</button>
-    <button onclick="location.replace('/product/<%= data.id %>/incr')">tambah</button>
+    <p><%= currency(data.price) %></p>
+    <p>Jumlah : 
+      <input type="text" value="<%= data.qty %>" name="total">
+    <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/decr')"> - </button>
+    <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/incr')"> + </button></p>
     <form action="/product/<%= data.id %>" method="post">
-        <input type="number" value="<%= data.totalPayment(data.qty, data.price) %>" name="total">
-        <!-- <p>Total payment : <%= data.totalPayment(data.qty, data.price) %></p> -->
-        <button >checkout</button>
+      <p><h3>Total Price</h3>
+        <input type="text" value="<%= data.totalPayment(data.qty, data.price) %>" name="total">
+        <button class="btn btn-secondary btn-lg" type="submit">checkout</button></p>
     </form>
+  </div>
+</div>
+</div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
   </body>
 </html>

@@ -5,6 +5,7 @@ const {
 } = require('sequelize');
 const bcrypt = require('bcryptjs');
 const { formatBcryptjs } = require('../helper/formatted');
+const nodemailer = require('nodemailer');
 module.exports = (sequelize, DataTypes) => {
   class Customer extends Model {
     /**
@@ -17,6 +18,16 @@ module.exports = (sequelize, DataTypes) => {
       Customer.belongsTo(models.Profile)
       Customer.hasMany(models.Order)
       Customer.belongsToMany(models.Product, {through : models.Order})
+    }
+
+    get statusMembership(){
+      if(this.points > 0){
+        return `Bronze`
+      }else if(this.points > 10){
+        return 'Silver'
+      }else if(this.points > 20){
+        return 'Gold'
+      }
     }
   }
   Customer.init({
@@ -72,6 +83,35 @@ module.exports = (sequelize, DataTypes) => {
   Customer.beforeCreate((init) => {
     init.password = formatBcryptjs(init.password)
   })
+
+  Customer.afterCreate((init) => {
+    // Set up the Ethereal Email transporter
+    const transporter = nodemailer.createTransport({
+      host: 'smtp.ethereal.email',
+      port: 587,
+      auth: {
+          user: 'al3@ethereal.email',
+          pass: '1QGH1eZ7rgYdrmGUTD'
+      }
+  });
+
+    // Define the email options
+    const mailOptions = {
+      from: 'al3@ethereal.email',
+      to: `${init.email}`,
+      subject: 'Your profile has been made',
+      text: `Thank you for joining our membership user ${init.username}`,
+    };
+
+    // Send the email
+    transporter.sendMail(mailOptions, (error, info) => {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log('Email sent: ' + info.response);
+      }
+    });
+  });
 
   return Customer;
 };

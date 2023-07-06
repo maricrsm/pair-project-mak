@@ -26,11 +26,11 @@
               <% data.forEach(el => { %>
                 <div class="col-sm-3">
                   <div class="card" style="height: 200px;" >
-                    <img height="500px" class="card-img-top" src="<%= el.img %>" alt="Ini foto tau gak? tapi eror HAHAHA">
+                    <img height="50px" class="card-img-top" src="<%= el.img %>" alt="Ini foto tau gak? tapi eror HAHAHA">
                     <div class="card-body">
                       <h5 class="card-title"><%= el.name %></h5>
-                      <p class="card-text"><%= el.price %></p>
-                      <a href="/users/<%= userId %>/product/<%= el.id %>" class="btn btn-primary">Buy</a>
+                      <p class="card-text"><%= currency(el.price) %></p>
+                      <a href="/product/<%= el.id %>" class="btn btn-primary">Buy</a>
                     </div>
                   </div>
                 </div>

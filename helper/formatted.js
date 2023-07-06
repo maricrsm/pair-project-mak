@@ -21,17 +21,23 @@ const sum = (val) => {
     );
     
     return sum
-  }
+}
 
-  const date = (val) => {
-    const options = {
-        weekday: "long",
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      };
+const date = (val) => {
+const options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    };
 
-    return val.toLocaleDateString("en-US", options)
-  }
+return val.toLocaleDateString("en-US", options)
+}
 
-module.exports = { formatBcryptjs, currency, sum, date }
+const pointsChecker = (val) => {
+    const total = sum(val)
+    const points = Math.floor(total / 50000)
+    return points
+}
+
+module.exports = { formatBcryptjs, currency, sum, date, pointsChecker}
