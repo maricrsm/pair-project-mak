@@ -18,8 +18,8 @@ Product.hasMany(models.Order)
 Product.belongsToMany(models.Customer, {through : models.Order})
 
 di model Order (associate kyk biasa)
-ProfileProduct.belongsTo(models.Customer)
-ProfileProduct.belongsTo(models.Product)
+Order.belongsTo(models.Customer)
+Order.belongsTo(models.Product)
 
 === bycriptjs ===
 func:
@@ -64,7 +64,7 @@ npx sequelize-cli model:generate --name Profile --attributes name:string,gender:
 
 npx sequelize-cli model:generate --name Customer --attributes username:string,email:string,password:string,points:integer,ProfileId:integer
 
-npx sequelize-cli model:generate --name Order --attributes orderId:string,total:integer,dateOfBirth:date,address:string
+npx sequelize-cli model:generate --name Order --attributes orderId:string,total:integer,dateOfBirth:date,address:string,CustomerId:integer
 
 npx sequelize-cli model:generate --name Product --attributes name:string,price:integer,qty:integer,img:string,CategoryId:integer
 
