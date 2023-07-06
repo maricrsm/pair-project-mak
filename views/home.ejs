@@ -4,6 +4,7 @@
     <!-- <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <title>Document</title>
+
     <link rel="stylesheet" href="/cssFiles/background.css">
 </head>
 <body>
@@ -12,19 +13,14 @@
         
       <div class="center2">
         <div class="card" style="width: 26rem;">
-          <h1>Menu List</h1>
-          <% data.forEach(el => { %>
-           
-            <div class="card" style="width: 18rem;">
-              <img src="..." class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title"><%= el.name %></h5>
-                <p class="card-text"><%= el.price %></p>
-                <a href="/product/<%= el.id %>" class="btn btn-primary">Buy</a>
-              </div>
+            <img src="/cssFiles/welcome.jpg" class="card-img-top" alt="WELCOME">
+            <div class="card-body">
+              <h5 class="card-title">Welcome Home</h5>
+              <p class="card-text"></p>
+              <a href="/users/register"><button class="btn btn-primary btn-lg"  >Register</button></a>
+              <a href="/users/login"><button class="btn btn-secondary btn-lg" >Sign in</button></a>
+              
             </div>
-      
-          <% }) %>
         </div>
     </div>
 

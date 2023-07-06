@@ -14,16 +14,23 @@ module.exports = (sequelize, DataTypes) => {
       Order.belongsTo(models.Customer)
       Order.belongsTo(models.Product)
     }
+
+
   }
   Order.init({
     orderId: DataTypes.STRING,
     total: DataTypes.INTEGER,
-    dateOfBirth: DataTypes.DATE,
-    address: DataTypes.STRING,
-    CustomerId: DataTypes.INTEGER
+    CustomerId: DataTypes.INTEGER,
+    ProductId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Order',
   });
+
+  Order.beforeCreate((init) => {
+    const date = new Date().getTime()
+    init.orderId = `${init.CustomerId}-${date}`
+  })
+
   return Order;
 };

@@ -75,7 +75,7 @@ npx sequelize-cli model:generate --name Profile --attributes name:string,gender:
 
 npx sequelize-cli model:generate --name Customer --attributes username:string,email:string,password:string,points:integer,ProfileId:integer
 
-npx sequelize-cli model:generate --name Order --attributes orderId:string,total:integer,dateOfBirth:date,address:string,CustomerId:integer
+npx sequelize-cli model:generate --name Order --attributes orderId:string,total:integer,CustomerId:integer
 
 npx sequelize-cli model:generate --name Product --attributes name:string,price:integer,qty:integer,img:string,CategoryId:integer
 

@@ -6,4 +6,11 @@ const formatBcryptjs = (pass) => {
     return hash
 }
 
-module.exports = {formatBcryptjs}
+const currency = (number) => {
+    return formattedNumber = number.toLocaleString("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    });
+}
+
+module.exports = { formatBcryptjs, currency }

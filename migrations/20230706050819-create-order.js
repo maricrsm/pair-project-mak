@@ -16,12 +16,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         defaultValue: 0
       },
-      dateOfBirth: {
-        type: Sequelize.DATE
-      },
-      address: {
-        type: Sequelize.STRING
-      },
       CustomerId: {
         type: Sequelize.INTEGER,
         references: {

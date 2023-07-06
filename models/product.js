@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const { formatBcryptjs, currency } = require('../helper/formatted')
 module.exports = (sequelize, DataTypes) => {
   class Product extends Model {
     /**
@@ -15,11 +16,26 @@ module.exports = (sequelize, DataTypes) => {
       Product.hasMany(models.Order)
       Product.belongsToMany(models.Customer, {through : models.Order})
     }
+
+    totalPayment(qty, price){
+      return qty * price
+    }
+
+    get currency(){
+      return currency(this.price)
+    }
+
+
   }
   Product.init({
     name: DataTypes.STRING,
     price: DataTypes.INTEGER,
-    qty: DataTypes.INTEGER,
+    qty: {
+      type: DataTypes.INTEGER,
+      validate:{
+        min: 0
+      }
+    },
     img: DataTypes.STRING,
     CategoryId: DataTypes.INTEGER
   }, {

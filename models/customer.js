@@ -20,10 +20,48 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Customer.init({
-    username: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
-    points: DataTypes.INTEGER,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `username cannot be empty`
+        },
+        notEmpty: {
+          msg: `username cannot be empty`
+        }
+      }
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `email cannot be empty`
+        },
+        notEmpty: {
+          msg: `email cannot be empty`
+        },
+        isEmail: {
+          msg: `please input your email`
+        }
+      }
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: `password cannot be empty`
+        },
+        notEmpty: {
+          msg: `password cannot be empty`
+        }
+      }
+    },
+    points: {
+      type: DataTypes.INTEGER
+    },
     ProfileId: DataTypes.INTEGER
   }, {
     sequelize,
