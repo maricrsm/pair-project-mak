@@ -126,7 +126,7 @@ class Controller {
         const { userId } = req.session
         const { total } = req.body
 
-        Order.create({total, CustomerId: userId, ProductId: pr_id})
+        Order.create({total, CustomerId: userId, ProductId: pr_id, currency})
         .then(() => {
             return Product.findByPk(pr_id)
         })

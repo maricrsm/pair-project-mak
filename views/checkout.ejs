@@ -47,10 +47,12 @@
       <p>needs to be paid.</p>
       <p>The total of your transaction is</p>
       <h1><p><%= currency(sum(orders)) %></p></h1>
-      <p>click the button below to pay</p>
+      <p style="text-align: center;">click the button below to pay</p>
       <button class="btn btn-primary btn-lg" onclick="location.replace('/checkout-transaction?chkout=<%= sum(orders) %>')">Payment</button>
+      <br>
+      <p style="text-align: center;">want to add more orders?</p>
     <% } else {%>
-      <p>You dont have any transaction</p>
+      <p style="text-align: center;">You dont have any transaction</p>
       <% } %>
       <br>
       <button class="btn btn-secondary btn-lg" onclick="location.replace('/menus')">Browse Menu</button>

@@ -25,12 +25,13 @@
       <% } %>
     <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/incr')"> + </button></p>
     <form action="/product/<%= data.id %>" method="post">
-      <p><h3>Total Price</h3>
-        <input type="text" value="<%= data.totalPayment(data.qty, data.price) %>" name="total">
-        <br><br>
-        <button class="btn btn-outline-warning btn-lg" type="submit">Add to Cart</button></p>
-        <br><button class="btn btn-danger">cancel</button></p>
-    </form>
+      <h3>Total Price</h3>
+      <h4><%= currency(data.totalPayment(data.qty, data.price)) %></h4>
+        <br>
+        <button name="total" value="<%= data.totalPayment(data.qty, data.price) %>" class="btn btn-outline-warning btn-lg" type="submit">
+          Add to Cart</button>
+        </form>
+      <br><button class="btn btn-danger" style="width: 100px;" onclick="location.replace('/menus')">cancel</button></p>
   </div>
 </div>
 </div>
