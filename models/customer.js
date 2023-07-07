@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Customer.belongsTo(models.Profile)
+      Customer.hasOne(models.Profile)
       Customer.hasMany(models.Order)
       Customer.belongsToMany(models.Product, {through : models.Order})
     }
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
         return `Gold`
       }else if(val > 15){
         return 'Silver'
-      }else if(val > 0){
+      }else if(val >= 0){
         return 'Bronze'
       }
     }
