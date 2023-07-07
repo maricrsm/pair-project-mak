@@ -35,8 +35,7 @@ return val.toLocaleDateString("en-US", options)
 }
 
 const pointsChecker = (val) => {
-    const total = sum(val)
-    const points = Math.floor(total / 50000)
+    const points = Math.floor(val / 50000)
     return points
 }
 

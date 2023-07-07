@@ -13,21 +13,21 @@ route.get('/users/register', Controller.registForm)
 route.post('/users/register', Controller.postRegistForm)
 route.get('/users/login', Controller.loginForm)
 route.post('/users/login', Controller.postLoginForm)
+route.get('/menus', Controller.readAllMenus)
+route.get('/contactus', Controller.readContactUs)
 
 route.use((req, res, next) => {
     // console.log(req.session.userId, "Middleware");
     if(req.session.userId) next()
     else {
         const validation = 'Please Sign in or Register first'
-        res.redirect('/')
+        res.redirect(`/users/login?usrerr=${validation}`)
         // res.redirect(`/?invalid=${validation}`)
     }
 })
 
-route.get('/menus', Controller.readAllMenus)
 route.get('/mycart', Controller.readMyCart)
 route.get('/profile', Controller.readMyProfile)
-route.get('/contactus', Controller.readContactUs)
 route.get('/loggingout', Controller.readUserLogout)
 route.get('/logout', Controller.logout)
 

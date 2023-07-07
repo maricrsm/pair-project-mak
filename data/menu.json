@@ -2,31 +2,25 @@
     {
         "name": "Ayam Krispi",
         "price": 12000,
-        "img": "tes",
+        "img": "https://images.unsplash.com/photo-1626082922482-ac8aa1f5c3c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTV8fGZyaWVkJTIwY2hpY2tlbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
         "CategoryId": 1
     },
     {
-        "name": "Ayam Original",
-        "price": 15000,
-        "img": "tes",
-        "CategoryId": 1
-    },
-    {
-        "name": "Ayam Bakar",
+        "name": "makNugget",
         "price": 13000,
-        "img": "tes",
+        "img": "https://images.unsplash.com/photo-1550513008-8cd1a9b590c8?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fGZyaWVkJTIwY2hpY2tlbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60",
         "CategoryId": 1
     },
     {
-        "name": "Coca-Cola",
+        "name": "Coco-Colo",
         "price": 20000,
-        "img": "tes",
+        "img": "https://images.unsplash.com/photo-1618183507099-4fa269f9b0ee?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTJ8fGNva2V8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=800&q=60",
         "CategoryId": 2
     },
     {
-        "name": "Sprite",
+        "name": "Sprita",
         "price": 17000,
-        "img": "tes",
+        "img": "https://images.unsplash.com/photo-1633710317472-c1f19624f3ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8c3ByaXRlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
         "CategoryId": 2
     },
     {
@@ -42,7 +36,7 @@
         "CategoryId": 3
     },
     {
-        "name": "aple cinnamon",
+        "name": "apel pei",
         "price": 200000,
         "img": "tes",
         "CategoryId": 3
@@ -50,11 +44,11 @@
     {
         "name": "Big makKu",
         "price": 220000,
-        "img": "tes",
+        "img": "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8YnVyZ2VyfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60",
         "CategoryId": 1
     },
     {
-        "name": "Mocha float",
+        "name": "Mocha",
         "price": 21000,
         "img": "tes",
         "CategoryId": 2

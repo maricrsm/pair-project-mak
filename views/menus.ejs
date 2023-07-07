@@ -10,23 +10,29 @@
     <div class="banner">
       <%- include('navbar') %>
 
-
-    <div class="center2">
-      <div class="card" style="position:fixed; width: 90rem;">
-        <form action="/menus" method="get">
-          <button name="cat" value="">ALL</button>
-          <button name="cat" value="1">Makanan</button>
-          <button name="cat" value="2">Minuman</button>
-          <button name="cat" value="3">Dessert</button>
-        </form>
-        
-          <h1>Menu List</h1>
+      <br>
+      <div class="center2">
+        <div class="card" style="text-align: center;margin: auto; width: 90rem;">
+          <h1>Menu List</h1><br>
+          <form action="/menus" method="get">
+            <button name="cat" value="" class="btn btn-warning">ALL</button>
+            <button name="cat" value="1" class="btn btn-warning">Makanan</button>
+            <button name="cat" value="2" class="btn btn-warning">Minuman</button>
+            <button name="cat" value="3" class="btn btn-warning">Dessert</button>
+          </form>
+        <br><br>
+        <% if (buy) { %>
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong><%= buy %></strong> have been added to cart
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% } %>
           <div class="container ">
             <div class="row">
               <% data.forEach(el => { %>
                 <div class="col-sm-3">
-                  <div class="card" style="height: 200px;" >
-                    <img height="50px" class="card-img-top" src="<%= el.img %>" alt="Ini foto tau gak? tapi eror HAHAHA">
+                  <div class="card" style="height: 400px; margin: 15px 0;" >
+                    <img style="height: 250px;" class="card-img-top" src="<%= el.img %>" alt="Ini foto tau gak? tapi eror HAHAHA">
                     <div class="card-body">
                       <h5 class="card-title"><%= el.name %></h5>
                       <p class="card-text"><%= currency(el.price) %></p>

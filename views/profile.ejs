@@ -11,15 +11,17 @@
       <%- include('navbar') %>
 
           <h1>Profile</h1>
+          <br><br>
           <div class="container" style="margin: 0 300px;">
             <div class="row">
                 <div class="col-sm-3">
                   <div class="card" style="height: 200px;" >
                     <div class="card-body">
                       <h5 class="card-title">Hello <%= data.title %></h5>
-                      <p class="card-text">your email : <%= data.Customer.email %></p>
-                      <p class="card-text">has been a member since : <%= date(data.createdAt) %></p>
+                      <br>
+                      <p class="card-text">your membership : <%= data.Customer.statusMembership(data.Customer.points) %></p>
                       <p class="card-text">your points : <%= data.Customer.points %></p>
+                      <p class="card-text">has been a member since : <%= date(data.createdAt) %></p>
                     </div>
                   </div>
                 </div>

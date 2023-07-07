@@ -20,13 +20,13 @@ module.exports = (sequelize, DataTypes) => {
       Customer.belongsToMany(models.Product, {through : models.Order})
     }
 
-    get statusMembership(){
-      if(this.points > 0){
-        return `Bronze`
-      }else if(this.points > 10){
+    statusMembership(val){
+      if(val > 35){
+        return `Gold`
+      }else if(val > 15){
         return 'Silver'
-      }else if(this.points > 20){
-        return 'Gold'
+      }else if(val > 0){
+        return 'Bronze'
       }
     }
   }

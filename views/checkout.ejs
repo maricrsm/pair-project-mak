@@ -16,7 +16,7 @@
     <h1>Hello, customer <%= profile.name %>!</h1>
 
     <% if (del) { %>
-        <p style="color: darkred; font-size: 10px;">Order with ID <%= del %> has been deleted</p>
+        <p style="color: darkred; font-size: 14px;">Order with ID <%= del %> has been deleted</p>
     <% } %>
 
     <% if (orders.length > 0) { %>
@@ -36,7 +36,9 @@
               <th scope="row"><%= i + 1 %></th>
               <td><%= currency(el.orderId) %></td>
                 <td><%= currency(el.total) %></td>
-              <td><button onclick="location.replace('/checkout/<%= el.orderId %>/delete')">delete</button></td>
+              <td>
+                <button class="btn btn-danger" onclick="location.replace('/checkout/<%= el.orderId %>/delete')">delete</button>
+              </td>
             </tr>
             <% }) %>
       
@@ -46,7 +48,7 @@
       <p>The total of your transaction is</p>
       <h1><p><%= currency(sum(orders)) %></p></h1>
       <p>click the button below to pay</p>
-      <button class="btn btn-primary btn-lg" onclick="location.replace('/checkout-transaction')">Payment</button>
+      <button class="btn btn-primary btn-lg" onclick="location.replace('/checkout-transaction?chkout=<%= sum(orders) %>')">Payment</button>
     <% } else {%>
       <p>You dont have any transaction</p>
       <% } %>

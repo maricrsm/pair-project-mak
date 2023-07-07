@@ -10,8 +10,6 @@
   <body>
     <%- include('navbar') %>
     <div class="banner">
-
-
     <div class="center2">
       <div class="card" style="width: 56rem;">
     <h1>Buy product</h1>
@@ -20,12 +18,18 @@
     <p><%= currency(data.price) %></p>
     <p>Jumlah : 
       <input type="text" value="<%= data.qty %>" name="total">
-    <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/decr')"> - </button>
+    <% if (data.qty > 0) { %>
+      <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/decr')"> - </button>
+    <% } else {%>
+      <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/decr')" disabled> - </button>
+      <% } %>
     <button class="btn btn-primary btn-lg" onclick="location.replace('/product/<%= data.id %>/incr')"> + </button></p>
     <form action="/product/<%= data.id %>" method="post">
       <p><h3>Total Price</h3>
         <input type="text" value="<%= data.totalPayment(data.qty, data.price) %>" name="total">
-        <button class="btn btn-secondary btn-lg" type="submit">checkout</button></p>
+        <br><br>
+        <button class="btn btn-outline-warning btn-lg" type="submit">Add to Cart</button></p>
+        <br><button class="btn btn-danger">cancel</button></p>
     </form>
   </div>
 </div>

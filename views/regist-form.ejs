@@ -8,6 +8,20 @@
     <link rel="stylesheet" href="/cssFiles/background.css">
   </head>
   <body>
+
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/menus" style="font-weight: bolder; color: gold; font-size: 25px;">MakkKu</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+          </div>
+            <div class="d-flex flex-row-reverse">
+              <a class="btn btn-outline-success" aria-current="page" href="/contactus">Contact Us</a>
+            </div>
+      </div>
+    </nav>
+
       <div class="banner">
 
     <div class="center2">
@@ -16,7 +30,7 @@
 
     <% if (invalid) { %>
       <% invalid.split(',').forEach(el => { %>
-        <p style="color: darkred; font-size: 10px;"><%= el %></p>
+        <p style="color: darkred; font-size: 14px;"><%= el %></p>
       <% }) %>
     <% } %>
 

@@ -70,9 +70,10 @@ class Controller {
     static readAllMenus(req, res){
         const cat = +req.query.cat
         const { userId } = req.session
+        const { buy } = req.query
 
         Product.prodByCategory(cat)
-        .then((data) => res.render('menus', {userId, data, currency}))
+        .then((data) => res.render('menus', {userId, data, currency, buy}))
         .catch((err) => res.send(err))
     }
     
@@ -96,17 +97,19 @@ class Controller {
         Profile.findOne(opt)
           .then(data => {
             // res.send(data)
-            res.render('profile',{data, date})
+            res.render('profile',{data, date, userId})
           })
           .catch(err => res.send(err));
     }
 
     static readContactUs(req, res){
-        res.render('contactus')
+        const { userId } = req.session;
+        res.render('contactus', userId)
     }
 
     static readUserLogout(req, res){
-        res.render('logout')
+        const { userId } = req.session;
+        res.render('logout', {userId})
     }
 
     static readOneMenu(req, res){
@@ -114,7 +117,7 @@ class Controller {
         const { userId } = req.session
 
         Product.findByPk(pr_id)
-        .then((data) => res.render('buy-product', {id: userId, data, currency}))
+        .then((data) => res.render('buy-product', {id: userId, data, currency, userId}))
         .catch((err) => res.send(err))
     }
 
@@ -124,7 +127,12 @@ class Controller {
         const { total } = req.body
 
         Order.create({total, CustomerId: userId, ProductId: pr_id})
-        .then(() => res.redirect(`/menus`))
+        .then(() => {
+            return Product.findByPk(pr_id)
+        })
+        .then((data) => {
+            res.redirect(`/menus?buy=${data.name}`)
+        })
         .catch((err) => res.send(err))
     }
 
@@ -171,17 +179,27 @@ class Controller {
             const { name } = data
             const {points} = data.Customer
             const orders = data.Customer.Orders
-            res.render('checkout',{customer: { points }, orders, profile: { name }, sum, del, currency})
+            res.render('checkout',{customer: { points }, orders, profile: { name }, sum, del, currency, userId})
           })
           .catch(err => res.send(err));
     }
 
     static checkedout(req, res) {
         const { userId } = req.session;
-      
-        Product.update({ qty: 0 }, {
-            where: { id: { [Op.gt]: 0 } }
-          })
+        const { chkout } = req.query
+        const receivedPoints = pointsChecker(chkout)
+        const opt = {
+            where: {
+              id: userId
+            }
+          }
+
+        Customer.increment({ points : receivedPoints }, opt)
+            .then(() => {
+                Product.update({ qty: 0 }, {
+                    where: { id: { [Op.gt]: 0 } }
+                })
+            })
             .then(() => {
               return Order.destroy({
                 where: {
@@ -191,7 +209,7 @@ class Controller {
                 }
               })
             })
-            .then(() => res.render('Sukses'))
+            .then(() => res.render('Sukses', { receivedPoints, userId }))
             .catch((err) => res.send(err))
     }
 
