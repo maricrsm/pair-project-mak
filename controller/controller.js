@@ -104,7 +104,7 @@ class Controller {
 
     static readContactUs(req, res){
         const { userId } = req.session;
-        res.render('contactus', userId)
+        res.render('contactus', {userId})
     }
 
     static readUserLogout(req, res){

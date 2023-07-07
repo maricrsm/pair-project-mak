@@ -26,19 +26,19 @@
     {
         "name": "MakFlurry",
         "price": 22000,
-        "img": "tes",
+        "img": "/cssFiles/mcflurry.jpeg",
         "CategoryId": 3
     },
     {
         "name": "choco pei",
         "price": 23000,
-        "img": "tes",
+        "img": "/cssFiles/chocopie.jpeg",
         "CategoryId": 3
     },
     {
         "name": "apel pei",
         "price": 200000,
-        "img": "tes",
+        "img": "/cssFiles/applepie.jpeg",
         "CategoryId": 3
     },
     {
@@ -50,7 +50,7 @@
     {
         "name": "Mocha",
         "price": 21000,
-        "img": "tes",
+        "img": "/cssFiles/mocha.jpeg",
         "CategoryId": 2
     }
   ]
